@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Variant View — Equity Research by Balannagari Pavan Kalyan</title>
+<meta name="description" content="Variant View is an equity research publication finding where Street consensus is wrong on Indian IT — large-cap and mid-cap. Built by Balannagari Pavan Kalyan.">
+<meta name="author" content="Balannagari Pavan Kalyan">
+<link rel="canonical" href="https://variantview.in/">
+
+<!-- Open Graph (LinkedIn / Facebook preview) -->
+<meta property="og:title" content="Variant View — Equity Research on Indian IT">
+<meta property="og:description" content="Where Street consensus ends, research begins. Independent equity research on Indian IT — TCS, Infosys, Persistent, Coforge, Mphasis, and the broader cohort.">
+<meta property="og:url" content="https://variantview.in/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Variant View">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Variant View — Equity Research on Indian IT">
+<meta name="twitter:description" content="Where Street consensus ends, research begins. Independent equity research on Indian IT.">
+
+<!-- Favicon (simple V monogram) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f5f1ea'/%3E%3Ctext x='50' y='72' font-family='Georgia,serif' font-size='72' font-weight='600' font-style='italic' text-anchor='middle' fill='%238b2820'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f1ea;
+    --bg-card: #faf7f1;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-mute: #8a8580;
+    --rule: #d9d2c4;
+    --accent: #8b2820;
+    --accent-soft: #c4a574;
+    --green: #2d5a3d;
+    --red: #8b2820;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    line-height: 1.6;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .sans { font-family: 'Inter Tight', sans-serif; }
+
+  /* Grain texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 2; }
+
+  /* NAV */
+  nav {
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 0;
+    background: var(--bg);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    font-style: italic;
+  }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  @media (max-width: 720px) { .nav-links { display: none; } }
+
+  /* HERO */
+  .hero { padding: 80px 0 60px; border-bottom: 1px solid var(--rule); }
+  .hero-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-mute);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .hero-meta::before {
+    content: '';
+    width: 32px; height: 1px; background: var(--accent);
+  }
+  .hero h1 {
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    margin-bottom: 28px;
+    max-width: 14ch;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 21px;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    line-height: 1.55;
+    margin-bottom: 40px;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    padding-top: 32px;
+    margin-top: 56px;
+  }
+  .stat { padding-right: 24px; border-right: 1px solid var(--rule); }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 42px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-mute);
+  }
+  @media (max-width: 720px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .stat { border-right: none; padding-right: 0; }
+  }
+
+  /* SECTION HEADER */
+  .section { padding: 80px 0; border-bottom: 1px solid var(--rule); }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 48px;
+  }
+  .section-title {
+    font-size: 36px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+  .section-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-mute);
+  }
+
+  /* COVERAGE CHIPS */
+  .coverage {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 32px;
+  }
+  .chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 7px 14px;
+    border: 1px solid var(--ink);
+    background: var(--bg-card);
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+
+  /* REPORTS */
+  .reports { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--rule); }
+  .report {
+    padding: 36px 32px 36px 0;
+    border-bottom: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    position: relative;
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+  .report:nth-child(even) { padding-right: 0; padding-left: 32px; border-right: none; }
+  .report:hover { background: var(--bg-card); }
+  .report-meta {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .ticker { color: var(--accent); font-weight: 600; }
+  .date { color: var(--ink-mute); }
+  .verdict {
+    padding: 2px 8px;
+    background: var(--ink);
+    color: var(--bg);
+    font-weight: 600;
+  }
+  .verdict.buy { background: var(--green); }
+  .verdict.hold { background: var(--accent-soft); color: var(--ink); }
+  .verdict.sell { background: var(--red); color: var(--bg); }
+  .report h3 {
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .report p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+  .report p.street-view {
+    padding-left: 14px;
+    border-left: 2px solid var(--ink-mute);
+  }
+  .report p.variant-view {
+    padding-left: 14px;
+    border-left: 2px solid var(--accent);
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .report p strong {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-mute);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .report p.variant-view strong { color: var(--accent); }
+  .report-tags {
+    display: flex;
+    gap: 14px;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 12px;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .report-tags span::before { content: '— '; }
+  @media (max-width: 720px) {
+    .reports { grid-template-columns: 1fr; }
+    .report, .report:nth-child(even) { padding: 32px 0; border-right: none; }
+  }
+
+  /* MODELS */
+  .models-list { border-top: 1px solid var(--rule); }
+  .model-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 140px 120px 100px;
+    align-items: center;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+    gap: 20px;
+    transition: padding-left 0.3s;
+    cursor: pointer;
+  }
+  .model-row:hover { padding-left: 16px; background: var(--bg-card); }
+  .model-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-mute);
+  }
+  .model-title {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .model-title small {
+    display: block;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 12px;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+    font-weight: 400;
+  }
+  .model-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+  }
+  .model-target {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: right;
+  }
+  .model-target small {
+    display: block;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 10px;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+  }
+  .model-arrow {
+    text-align: right;
+    font-size: 20px;
+    color: var(--ink-mute);
+    transition: transform 0.3s, color 0.3s;
+  }
+  .model-row:hover .model-arrow { color: var(--accent); transform: translateX(6px); }
+  @media (max-width: 720px) {
+    .model-row { grid-template-columns: 40px 1fr 60px; }
+    .model-type, .model-target { display: none; }
+  }
+
+  /* METHOD - Signature Four-Part Format */
+  .method-intro {
+    max-width: 70ch;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .method-intro p {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .method-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .method-cell {
+    background: var(--bg);
+    padding: 40px 32px;
+    position: relative;
+  }
+  .method-roman {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 56px;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .method-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-mute);
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .method-cell h4 {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 14px;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+  }
+  .method-cell p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  @media (max-width: 720px) { .method-grid { grid-template-columns: 1fr; } }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .about-side {
+    border-left: 2px solid var(--accent);
+    padding-left: 24px;
+  }
+  .about-side .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-mute);
+    margin-bottom: 12px;
+  }
+  .about-side h4 {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .about-side p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .about-body p {
+    font-size: 19px;
+    line-height: 1.65;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .about-body p:first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 64px;
+    float: left;
+    line-height: 0.85;
+    padding: 8px 12px 0 0;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--accent);
+  }
+  @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+  /* CTA / CONTACT */
+  .cta {
+    padding: 100px 0;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .cta h2 {
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    max-width: 18ch;
+    margin: 0 auto 24px;
+  }
+  .cta h2 em { font-style: italic; color: var(--accent); }
+  .cta p {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 50ch;
+    margin: 0 auto 40px;
+  }
+  .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    padding: 16px 28px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--bg);
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-block;
+  }
+  .btn:hover { background: var(--accent); border-color: var(--accent); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn.ghost:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  /* FOOTER */
+  footer { padding: 48px 0 32px; }
+  .disclaimer {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ink-mute);
+    max-width: 80ch;
+    padding: 20px 0 28px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .disclaimer strong {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-soft);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 13px;
+    color: var(--ink-mute);
+  }
+  .foot a { color: var(--ink-soft); text-decoration: none; margin-left: 24px; }
+  .foot a:hover { color: var(--accent); }
+  @media (max-width: 720px) {
+    .foot { flex-direction: column; gap: 16px; align-items: flex-start; }
+    .foot a { margin: 0 16px 0 0; }
+  }
+
+  /* ANIMATIONS */
+  .fade-in { opacity: 0; transform: translateY(20px); animation: rise 0.8s ease forwards; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <div class="logo">Variant<span>·</span>View</div>
+    <div class="nav-links">
+      <a href="#reports">Reports</a>
+      <a href="#models">Models</a>
+      <a href="#approach">Method</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-meta fade-in">Equity Research · Indian IT · Est. 2026</div>
+    <h1 class="fade-in delay-1">Where consensus ends, <em>research begins.</em></h1>
+    <p class="hero-sub fade-in delay-2">An equity research publication built on a single discipline — finding where Street consensus is wrong on Indian IT, and showing the work. Every piece identifies a specific disagreement with the sell-side, quantifies the gap, and pressure-tests the thesis against the bear case.</p>
+
+    <div class="coverage fade-in delay-3">
+      <span class="chip">TCS</span>
+      <span class="chip">INFOSYS</span>
+      <span class="chip">PERSISTENT</span>
+      <span class="chip">COFORGE</span>
+      <span class="chip">MPHASIS</span>
+      <span class="chip">LTIM</span>
+      <span class="chip">+ WATCHLIST</span>
+    </div>
+
+    <div class="hero-stats fade-in delay-4">
+      <div class="stat">
+        <div class="stat-num">00</div>
+        <div class="stat-label">Reports Published</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">00</div>
+        <div class="stat-label">Financial Models</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">04</div>
+        <div class="stat-label">Companies Under Coverage</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="reports">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">Upcoming <em>research</em></h2>
+      <span class="section-kicker">— Vol. I / Inaugural Coverage</span>
+    </div>
+
+    <div class="reports">
+      <article class="report">
+        <div class="report-meta">
+          <span class="ticker">PERSISTENT</span>
+          <span class="date">In Progress</span>
+          <span class="verdict buy">Variant View</span>
+        </div>
+        <h3>The hidden operating leverage in Persistent's BFSI book</h3>
+        <p class="street-view"><strong>Street's view:</strong> Persistent will deliver ~20% revenue growth, in line with the broader Tier-2 IT cohort, with margins flat-to-modest.</p>
+        <p class="variant-view"><strong>Variant view:</strong> Unit economics on the BFSI vertical point to operating leverage the Street is not yet modelling.</p>
+        <div class="report-tags">
+          <span>DCF</span>
+          <span>Unit Economics</span>
+          <span>BFSI</span>
+        </div>
+      </article>
+
+      <article class="report">
+        <div class="report-meta">
+          <span class="ticker">COFORGE</span>
+          <span class="date">Forthcoming</span>
+          <span class="verdict hold">Variant View</span>
+        </div>
+        <h3>Coforge's Cigniti integration: is the re-rating priced in?</h3>
+        <p class="street-view"><strong>Street's view:</strong> The Cigniti acquisition unlocks meaningful cross-sell synergies, justifying the post-deal multiple expansion.</p>
+        <p class="variant-view"><strong>Variant view:</strong> Historical IT-services M&amp;A in India suggests synergy capture is slower and shallower than the current multiple implies.</p>
+        <div class="report-tags">
+          <span>M&amp;A</span>
+          <span>3-Statement</span>
+          <span>Sensitivity</span>
+        </div>
+      </article>
+
+      <article class="report">
+        <div class="report-meta">
+          <span class="ticker">MPHASIS</span>
+          <span class="date">Forthcoming</span>
+          <span class="verdict sell">Variant View</span>
+        </div>
+        <h3>Mphasis: optical cheapness vs structural risk</h3>
+        <p class="street-view"><strong>Street's view:</strong> Mphasis screens attractive on P/E relative to peers, with the DXC exposure now well-understood and discounted.</p>
+        <p class="variant-view"><strong>Variant view:</strong> Client concentration, deal renewal patterns, and the Blackstone exit overhang make the multiple structurally — not optically — depressed.</p>
+        <div class="report-tags">
+          <span>Risk Analysis</span>
+          <span>Client Mix</span>
+          <span>Ownership</span>
+        </div>
+      </article>
+
+      <article class="report">
+        <div class="report-meta">
+          <span class="ticker">SECTOR</span>
+          <span class="date">Forthcoming</span>
+          <span class="verdict">Primer</span>
+        </div>
+        <h3>Indian IT: a framework for variant views</h3>
+        <p class="street-view"><strong>Street's view:</strong> Large-cap IT sets the demand signal; mid-caps are a derivative bet on the same drivers.</p>
+        <p class="variant-view"><strong>Variant view:</strong> The metrics that drive re-ratings differ structurally between large-caps and mid-caps — and the Street uses the wrong lens for each.</p>
+        <div class="report-tags">
+          <span>Framework</span>
+          <span>Sector Note</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="models">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">Financial <em>models</em></h2>
+      <span class="section-kicker">— Excel · Python validated · Forthcoming</span>
+    </div>
+
+    <div class="models-list">
+      <div class="model-row">
+        <div class="model-num">01</div>
+        <div class="model-title">Persistent Systems — Full DCF
+          <small>Three-statement · 5Y forecast · WACC sensitivity</small>
+        </div>
+        <div class="model-type">DCF · Excel</div>
+        <div class="model-target">5Y <small>Forecast Horizon</small></div>
+        <div class="model-arrow">→</div>
+      </div>
+      <div class="model-row">
+        <div class="model-num">02</div>
+        <div class="model-title">Coforge — M&amp;A Accretion Model
+          <small>Synergy waterfall · EPS impact · Multiples</small>
+        </div>
+        <div class="model-type">M&amp;A · Excel</div>
+        <div class="model-target">3Y <small>Synergy Window</small></div>
+        <div class="model-arrow">→</div>
+      </div>
+      <div class="model-row">
+        <div class="model-num">03</div>
+        <div class="model-title">Mphasis — Reverse DCF
+          <small>What the market implies · Bear case</small>
+        </div>
+        <div class="model-type">Reverse DCF</div>
+        <div class="model-target">— <small>Implied Growth</small></div>
+        <div class="model-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="approach">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">The <em>method</em></h2>
+      <span class="section-kicker">— Every report. Four parts. No exceptions.</span>
+    </div>
+
+    <div class="method-intro">
+      <p>The discipline of variant perception requires structure. Every Variant View report follows the same four-part architecture — designed to make the disagreement with consensus explicit, the evidence transparent, and the analyst falsifiable.</p>
+    </div>
+
+    <div class="method-grid">
+      <div class="method-cell">
+        <div class="method-roman">I.</div>
+        <div class="method-label">The Street's View</div>
+        <h4>What consensus believes</h4>
+        <p>A faithful summary of the prevailing sell-side narrative — sourced from Motilal Oswal, Kotak, JM, ICICI Direct, and other major brokerage notes. No straw men.</p>
+      </div>
+      <div class="method-cell">
+        <div class="method-roman">II.</div>
+        <div class="method-label">The Variant View</div>
+        <h4>The disagreement, in one sentence</h4>
+        <p>A precise, falsifiable claim that diverges from consensus. Not a slogan. A specific assertion about a specific driver — utilisation, margins, deal mix, or capital allocation.</p>
+      </div>
+      <div class="method-cell">
+        <div class="method-roman">III.</div>
+        <div class="method-label">The Evidence</div>
+        <h4>Why the gap exists</h4>
+        <p>First-principles work — three-statement models, unit economics, BSE/NSE filings, concall transcripts — that supports the variant view. Every chart sourced, every assumption disclosed.</p>
+      </div>
+      <div class="method-cell">
+        <div class="method-roman">IV.</div>
+        <div class="method-label">The Risks</div>
+        <h4>What would make this wrong</h4>
+        <p>An explicit list of what the bear case looks like, which data points would invalidate the thesis, and what signposts to watch. Analysts who cannot articulate their own risks should not be trusted.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">About the <em>analyst</em></h2>
+      <span class="section-kicker">— Balannagari Pavan Kalyan</span>
+    </div>
+
+    <div class="about-grid">
+      <aside class="about-side">
+        <div class="label">Credentials</div>
+        <h4>FMVA®</h4>
+        <p>Financial Modeling &amp; Valuation Analyst · CFI</p>
+        <h4>MBA, Finance</h4>
+        <p>Bangalore · 2026</p>
+        <h4>Equity Research</h4>
+        <p>Prior — Equity Broking, JM Financial</p>
+        <div class="label" style="margin-top: 32px;">Research Stack</div>
+        <h4>Toolkit</h4>
+        <p>Excel · Python · Screener.in · Trendlyne · Tijori · BSE/NSE filings</p>
+      </aside>
+
+      <div class="about-body">
+        <p>Variant View exists for one purpose — to identify, quantify, and pressure-test where Street consensus is wrong on Indian IT. Not earnings recaps. Not buy/sell tips. A publication whose entire editorial filter is the gap between what the sell-side believes and what the filings actually show.</p>
+        <p>Coverage spans the Indian IT universe — from large-caps where genuine variant views are scarce but consequential, to mid-caps where consensus is thinnest and the edge is sharpest. The mid-cap zone is where most of the work lives, because that is where sell-side coverage is shallowest and where the gap between consensus and reality is widest.</p>
+        <p>Every report follows the same four-part discipline — the Street's view, the variant view, the evidence, the risks. Every model behind a report is published alongside it. The reader can replicate, challenge, or extend the work. That is the only honest standard for research.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="wrap">
+    <h2>For recruiters, PMs, and fellow <em>analysts.</em></h2>
+    <p>If you'd like to discuss the work, request a model walkthrough, or share feedback on a thesis — the door is open.</p>
+    <div class="btn-row">
+      <a href="mailto:variantview.equity@gmail.com" class="btn">Get in touch</a>
+      <a href="https://www.linkedin.com/in/balannagari-pavan-kalyan-b30a4a32b" target="_blank" rel="noopener" class="btn ghost">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>Disclaimer.</strong> Variant View is an analytical publication for educational and illustrative purposes only. The author is not a SEBI-registered Research Analyst. Nothing on this site constitutes investment advice, an offer to buy or sell securities, or a recommendation of any kind. All content reflects the personal views of the author, derived from publicly available filings and sources. Readers should consult a SEBI-registered advisor before making investment decisions.
+    </div>
+    <div class="foot">
+      <div>© 2026 Variant View · Balannagari Pavan Kalyan</div>
+      <div>
+        <a href="https://www.linkedin.com/in/balannagari-pavan-kalyan-b30a4a32b" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:variantview.equity@gmail.com">Email</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Subtle scroll reveal for sections
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.section').forEach(s => {
+    s.style.opacity = '0';
+    s.style.transform = 'translateY(30px)';
+    s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    observer.observe(s);
+  });
+</script>
+
+</body>
+</html>
