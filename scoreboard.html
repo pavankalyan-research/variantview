@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scoreboard — Variant View</title>
+<meta name="description" content="Every Variant View thesis, publicly graded against outcomes. Right or wrong, the record stays up.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2310151E'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-style='italic' font-size='34' fill='%2300A868' text-anchor='middle'%3EV%C2%B7V%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFBF8;--ink:#10151E;--ink-soft:#4A5261;--line:#E3E2DB;--card:#FFFFFF;
+  --green:#00A868;--green-tint:#E7F7EF;--green-line:#CBEBD9;--green-deep:#03734A;
+  --red:#B4442E;--red-tint:#FBEEEA;
+  --header-bg:rgba(251,251,248,.92);--max:1080px;
+}
+html[data-theme="dark"]{
+  --paper:#0E1219;--ink:#EDEFF2;--ink-soft:#9AA3B2;--line:#242B37;--card:#151B25;
+  --green:#00C878;--green-tint:#122A20;--green-line:#1E4634;--green-deep:#2BD98F;
+  --red:#E06A50;--red-tint:#2E1913;
+  --header-bg:rgba(14,18,25,.92);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--green-deep);outline-offset:3px;border-radius:2px}
+header{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--header-bg);backdrop-filter:blur(8px);z-index:50}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{font-family:'Newsreader',serif;font-size:1.35rem;font-weight:600;text-decoration:none;white-space:nowrap}
+.logo em{font-style:italic;color:var(--green-deep)}
+nav.links{display:flex;gap:26px;align-items:center}
+nav.links a{text-decoration:none;font-size:.82rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+nav.links a:hover{color:var(--ink)}
+.theme-btn{background:none;border:1px solid var(--line);border-radius:99px;width:38px;height:38px;cursor:pointer;color:var(--ink);display:grid;place-items:center;font-size:1rem}
+@media(max-width:720px){nav.links a{display:none}}
+.hero{padding:72px 0 48px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep);margin-bottom:18px}
+h1{font-family:'Newsreader',serif;font-weight:400;font-size:clamp(2rem,5vw,3.2rem);line-height:1.12;max-width:20ch}
+h1 em{font-style:italic;font-weight:500}
+.hero p{max-width:58ch;margin-top:20px;color:var(--ink-soft)}
+section{padding:64px 0}
+.sec-note{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* record table */
+.record{width:100%;border-collapse:collapse;margin-top:28px;font-size:.92rem}
+.record th{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-soft);text-align:left;padding:10px 12px;border-bottom:2px solid var(--ink)}
+.record td{padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.record .tick{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--green-deep);white-space:nowrap}
+.record .date{font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--ink-soft);white-space:nowrap}
+.pill{display:inline-block;padding:3px 10px;border-radius:99px;font-family:'IBM Plex Mono',monospace;
+  font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.pill.open{border:1px solid var(--line);color:var(--ink-soft)}
+.pill.right{background:var(--green-tint);border:1px solid var(--green-line);color:var(--green-deep)}
+.pill.wrong{background:var(--red-tint);border:1px solid var(--red);color:var(--red)}
+@media(max-width:760px){
+  .record thead{display:none}
+  .record tr{display:block;border-bottom:1px solid var(--line);padding:14px 0}
+  .record td{display:block;border:none;padding:3px 0}
+  .record td::before{content:attr(data-l);display:block;font-family:'IBM Plex Mono',monospace;
+    font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+}
+
+/* signposts */
+.signposts{border-top:1px solid var(--line)}
+.sign-card{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:22px;margin-top:20px}
+.sign-card h3{font-family:'Newsreader',serif;font-weight:500;font-size:1.2rem;margin-bottom:4px}
+.sign-card .mono{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--ink-soft)}
+.sign-card ul{list-style:none;margin-top:14px}
+.sign-card li{padding:8px 0 8px 22px;border-top:1px solid var(--line);font-size:.92rem;position:relative;color:var(--ink-soft)}
+.sign-card li::before{content:"▸";position:absolute;left:0;color:var(--green-deep)}
+.sign-card li strong{color:var(--ink)}
+footer{padding:32px 0 48px;color:var(--ink-soft);font-size:.8rem;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/">Variant<em>·</em>View</a>
+    <nav class="links" aria-label="Main">
+      <a href="/#coverage">Coverage</a>
+      <a href="/#research">Research</a>
+      <a href="/#method">Method</a>
+      <a href="/#about">About</a>
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">◐</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">The Scoreboard</p>
+      <h1>Every call, publicly graded — <em>right or wrong.</em></h1>
+      <p>Each variant view published on this site is logged here on the day it goes live, then graded against reported results. Nothing is edited after the fact, and misses stay on the board. An analyst's record should be checkable, not claimed.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <span class="sec-note">Track record · Updated each results season</span>
+      <table class="record">
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Published</th>
+            <th>The variant view</th>
+            <th>Checkpoint</th>
+            <th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- TEMPLATE ROW — duplicate this <tr> for each new report.
+               Verdict pill classes: "pill open" / "pill right" / "pill wrong" -->
+          <tr>
+            <td data-l="Company"><span class="tick">PERSISTENT</span></td>
+            <td data-l="Published"><span class="date">Vol. I — TBD</span></td>
+            <td data-l="The variant view">BFSI unit economics imply operating leverage the Street is not modelling.</td>
+            <td data-l="Checkpoint"><span class="date">Q2 FY27 results</span></td>
+            <td data-l="Verdict"><span class="pill open">Open</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="signposts">
+    <div class="wrap">
+      <span class="sec-note">Signposts · What would confirm or kill each thesis</span>
+
+      <!-- TEMPLATE CARD — one per open thesis -->
+      <div class="sign-card">
+        <h3>Persistent Systems — BFSI operating leverage</h3>
+        <p class="mono">Watching from next results season</p>
+        <ul>
+          <li><strong>Confirms:</strong> BFSI vertical growth outpacing company average with stable or rising EBIT margin.</li>
+          <li><strong>Confirms:</strong> Utilisation and pricing commentary on BFSI deals in the concall.</li>
+          <li><strong>Kills:</strong> Margin guidance walked down, or BFSI growth driven by pass-through/low-margin deals.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Variant View · Balannagari Pavan Kalyan · Not investment advice — see <a href="/#contact">disclaimer</a>.</div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('themeToggle'),s=null;
+  try{s=localStorage.getItem('vv-theme')}catch(e){}
+  var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
+  root.setAttribute('data-theme',s||(d?'dark':'light'));
+  btn.addEventListener('click',function(){
+    var t=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',t);
+    try{localStorage.setItem('vv-theme',t)}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
